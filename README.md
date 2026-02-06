@@ -125,27 +125,39 @@ python dirty_example_cleaned.py
 
 ### **Syntax Errors Demo**
 ### ❌ Before Cleaning
+<img width="1277" height="520" alt="syntax_error" src="https://github.com/user-attachments/assets/bb83cddf-2392-42d4-92e2-ca16b2d49ed1" />
+
  Python fails due to invisible whitespace issues.
 
 Mixed tabs and spaces combined with a broken line continuation cause a TabError / SyntaxError, even though the logic is correct.*
 
 ### ✅ After Cleaning
+<img width="1277" height="520" alt="syntax_error_cleaned" src="https://github.com/user-attachments/assets/971bc473-6ab2-42c7-b014-f63ccc83e9a6" />
+
 Same logic, valid syntax.
 Tabs are converted to spaces and trailing whitespace after the backslash is removed. The script now runs successfully without changing behavior.
 
 ### **Git Issues Demo**
 ### ❌ Before Cleaning
+<img width="1277" height="520" alt="git_issues" src="https://github.com/user-attachments/assets/5d1050bb-9c2a-4bb7-aa7b-711ce0b55a36" />
+
 Whitespace noise in version control.
 Trailing spaces and excessive blank lines create unnecessary changes in git diffs and clutter commits.
 ### ✅ After Cleaning
+<img width="1277" height="520" alt="git_issues_cleaned" src="https://github.com/user-attachments/assets/8e99c6b3-063f-439a-b1e2-df247ca7ff2d" />
+
 Clean diffs, cleaner commits.
 Trailing whitespace is removed and blank lines are normalized, reducing git noise without modifying code logic.
  
 ### **File Size Demo**
 ### ❌ Before Cleaning
+<img width="1277" height="791" alt="file_size" src="https://github.com/user-attachments/assets/6129e62e-ec4a-4e10-a51a-a0117257b561" />
+
 Unnecessarily long and bloated file.
 Excessive blank lines increase file length and reduce readability.
 ### ✅ After Cleaning
+<img width="1277" height="600" alt="file_size_cleaned" src="https://github.com/user-attachments/assets/221dd5d4-0c4b-408d-92d7-40defc617271" />
+
 Compact and readable.
 Multiple blank lines are collapsed into a single line, improving readability and reducing file size.
 
