@@ -6,6 +6,9 @@ on:
     tags:
       - 'v*'  # Trigger on tags like 'v1.0.0'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -54,6 +57,5 @@ jobs:
         with:
           files: |
             *.tar.gz
-            *.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+        
