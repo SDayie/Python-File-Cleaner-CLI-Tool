@@ -1,6 +1,6 @@
 # 🐍 Python Cleaner Tool
 
-# Automatically manage whitespace and fix basic Python syntax issues without changing your code logic. 
+## Automatically manage whitespace and fix basic Python syntax issues without changing your code logic. 
 
 - Converts tabs to spaces (**prevents `TabError`**)  
 - Fixes simple syntax issues like **trailing backslashes at the end of lines**  
