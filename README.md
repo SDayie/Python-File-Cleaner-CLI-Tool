@@ -17,13 +17,13 @@
 - Install [Rust](https://www.rust-lang.org/tools/install) on your system.  
 - Ensure `cargo` is available in your terminal.
 
-### ** Download / Clone the Tool from GitHub
+###  Download / Clone the Tool from GitHub
 Open your terminal (macOS/Linux) or PowerShell (Windows) and run:
 git clone https://github.com/SDayie/Python-File-Cleaner-CLI-Tool.git
 cd "Python-File-Cleaner-CLI-Tool"
 This downloads the tool to your computer and navigates into the project folder.
  
-### ** Run the Tool (without installing globally)
+###  Run the Tool (without installing globally)
 macOS / Linux
 cargo run -- /path/to/your/python/file.py
 Example:
@@ -31,7 +31,7 @@ cargo run -- ~/Downloads/dirty_example.py
 Windows (PowerShell)
 cargo run -- "C:\Users\YourName\Downloads\dirty_example.py"
  
-### ** Run the Tool (after installing globally, optional)
+###  Run the Tool (after installing globally, optional)
 You can install the CLI globally (so you can run it from any folder):
 cargo install --path .
 After installation, simply run:
@@ -39,7 +39,7 @@ python-cleaner /path/to/your/python/file.py
 On macOS/Linux, the binary is usually in ~/.cargo/bin/python-cleaner
 On Windows, in %USERPROFILE%\.cargo\bin\python-cleaner.exe
  
-### ** Choose what to clean
+###  Choose what to clean
 After running, the tool will ask:
 What's your main problem?
 1. Syntax errors
@@ -48,7 +48,7 @@ What's your main problem?
 4. Everything
 Enter choice:
 
-### ** What each choice does:
+###  What each choice does:
 Choice	Fixes
 1. Syntax errors	Tabs → spaces, trailing spaces after \, normalize line endings
 2. Git issues	Trailing spaces, multiple blank lines, consistent formatting for cleaner diffs
@@ -57,7 +57,7 @@ Choice	Fixes
 
 Type a number and press Enter.
  
-### ** Enter the new cleaned file name
+###  Enter the new cleaned file name
 You will see:
 Enter the name for the cleaned file (include .py), or press Enter to use default:
 >
@@ -65,7 +65,7 @@ Enter the name for the cleaned file (include .py), or press Enter to use default
 •	Or press Enter to use the default: <original>_cleaned.py
 The original file is never modified.
  
-### ** Confirm Cleaning
+###  Confirm Cleaning
 Cleaned file saved as: dirty_example_cleaned.py
 •	You can now run the cleaned file:
 python dirty_example_cleaned.py
