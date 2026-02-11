@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python File Cleaner - Clean Code, Zero Stress</title>
+    <meta name="description" content="Clean Python files automatically without touching your logic. Fix whitespace, tabs, and formatting instantly.">
+    <meta name="keywords" content="Python, code cleaner, whitespace, TabError, git, formatting, developer tools">
+    <meta property="og:title" content="Python File Cleaner">
+    <meta property="og:description" content="Clean Python files automatically without touching your logic.">
+    <meta property="og:type" content="website">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS File (LINKED) -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Configure Tailwind theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0a0a0a',
+                        gray: {
+                            850: '#1f2937',
+                            900: '#111111',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-medium': 'float 5s ease-in-out infinite reverse',
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+                        'gradient-shift': 'gradient-shift 4s ease infinite',
+                        'shimmer': 'shimmer 2s infinite linear',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'fade-in-right': 'fadeInRight 0.8s ease-out forwards',
+                        'fade-in-left': 'fadeInLeft 0.8s ease-out forwards',
+                        'ripple': 'ripple-animation 0.6s linear',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+                            '50%': { boxShadow: '0 0 40px rgba(59, 130, 246, 0.6)' },
+                        },
+                        'gradient-shift': {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                            '100%': { backgroundPosition: '0% 50%' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        fadeInUp: {
+                            to: { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        fadeInRight: {
+                            to: { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        fadeInLeft: {
+                            to: { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        'ripple-animation': {
+                            to: { transform: 'scale(4)', opacity: '0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark text-gray-200 selection:bg-blue-500/30">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2 font-bold text-white text-lg tracking-tight">
+                <div class="w-6 h-6 rounded bg-gradient-to-tr from-blue-500 to-emerald-400 shadow-lg shadow-blue-500/20"></div>
+                Python File Cleaner
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="#features" class="text-gray-400 hover:text-white transition-colors hidden md:inline">Features</a>
+                <a href="#safety" class="text-gray-400 hover:text-white transition-colors hidden md:inline">Safety</a>
+                <a href="#who-is-it-for" class="text-gray-400 hover:text-white transition-colors hidden md:inline">Use Cases</a>
+                <button onclick="scrollToInstall()" class="btn-glow bg-gradient-to-r from-blue-600 to-emerald-500 text-white px-6 py-2 rounded-xl font-semibold text-sm shadow-lg shadow-blue-900/20">
+                    Installation Steps
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator hidden md:block">
+        <div class="scroll-dot active" data-section="hero" onclick="scrollToSection('hero')"></div>
+        <div class="scroll-dot" data-section="features" onclick="scrollToSection('features')"></div>
+        <div class="scroll-dot" data-section="safety" onclick="scrollToSection('safety')"></div>
+        <div class="scroll-dot" data-section="who-is-it-for" onclick="scrollToSection('who-is-it-for')"></div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section relative pt-32 pb-24 px-6 overflow-hidden min-h-[90vh] flex items-center">
+            <!-- Background Elements -->
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <div class="absolute inset-0 bg-dark"></div>
+                <div class="absolute inset-0 bg-grid opacity-30"></div>
+                <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
+                <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-600/10 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4"></div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10 w-full">
+                <!-- Left Content -->
+                <div class="animate-fade-in-right">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-8 tracking-tight">
+                        Clean Python files.<br />
+                        <span class="gradient-text">Zero logic changes.</span>
+                    </h1>
+                    <p class="text-xl text-gray-400 mb-10 leading-relaxed max-w-lg">
+                        A lightweight command-line tool that automatically cleans whitespace and formatting issues in Python files — without touching your code's logic.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="scrollToInstall()" class="btn-glow bg-gradient-to-r from-blue-600 to-emerald-500 flex items-center justify-center px-8 py-4 text-white rounded-xl font-semibold shadow-lg shadow-blue-900/20">
+                           Installation Steps
+                        </button>
+
+                        <button onclick="window.open('https://github.com/SDayie/Python-File-Cleaner-CLI-Tool.git', '_blank')" class="btn-glow flex items-center justify-center gap-2 px-8 py-4 bg-[#1a1a1a] hover:bg-[#252525] text-gray-200 rounded-xl font-semibold transition-all border border-gray-800 hover:border-gray-700">
+                            View on GitHub
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="mt-8 flex items-center gap-4 text-sm text-gray-500">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-500"></i>
+                            <span>100% safe</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="zap" class="w-4 h-4 text-blue-500"></i>
+                            <span>Lightning fast</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="code" class="w-4 h-4 text-purple-500"></i>
+                            <span>Open source</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Visual -->
+                <div class="relative flex justify-center lg:justify-end animate-fade-in-left delay-200">
+                    <div class="hero-card relative w-full max-w-lg aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-gray-800 group">
+                        <!-- Abstract Background Image -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-900 to-black z-0"></div>
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Abstract Tech" 
+                             class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-screen group-hover:scale-105 transition-transform duration-700">
+                        
+                        <!-- Overlay Gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-80"></div>
+
+                        <!-- Floating Cards -->
+                        <div class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6 p-8">
+                            <!-- Card 1 -->
+                            <div class="glass hero-card w-full max-w-xs p-5 rounded-2xl flex items-center gap-4 transform -rotate-2 hover:rotate-0 transition-transform duration-500 float-slow border-l-4 border-l-blue-500">
+                                <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center shrink-0">
+                                    <i data-lucide="file-code" class="w-6 h-6 text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">Status</div>
+                                    <div class="text-lg font-bold text-white">Files Optimized</div>
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center animate-pulse">
+                                        <i data-lucide="check" class="w-4 h-4 text-green-400"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="glass hero-card w-full max-w-xs p-5 rounded-2xl flex items-center gap-4 transform translate-x-8 rotate-3 hover:rotate-0 transition-transform duration-500 float-medium border-l-4 border-l-green-500 delay-75">
+                                <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center shrink-0">
+                                    <i data-lucide="shield-check" class="w-6 h-6 text-green-400"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-semibold text-green-400 uppercase tracking-wider mb-1">Result</div>
+                                    <div class="text-lg font-bold text-white">Zero Errors</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-24 px-6 bg-dark relative scroll-mt-24">
+            <div class="glow-blob top-0 left-0 -translate-x-1/2 -translate-y-1/2"></div>
+            
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="text-center mb-20 animate-fade-in-up">
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Why Python File Cleaner?</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+                        Whitespace problems are one of the most frustrating issues in Python projects. We solved them so you don't have to.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Feature 1 -->
+                    <div class="feature-card-enhanced p-8 rounded-2xl group animate-fade-in-up delay-100">
+                        <div class="feature-icon-wrapper w-14 h-14 bg-[#1a1a1a] rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-500/10 group-hover:text-blue-400 transition-colors border border-gray-800 group-hover:border-blue-500/30">
+                            <i data-lucide="alert-triangle" class="w-7 h-7 text-gray-400 group-hover:text-blue-400 transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Prevents Syntax Errors</h3>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Automatically fixes the most common whitespace-related syntax errors that plague Python projects.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> Converts tabs to spaces automatically</li>
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> Cleans line continuations after backslashes</li>
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> Normalises line endings (CRLF/LF)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-card-enhanced p-8 rounded-2xl group animate-fade-in-up delay-200">
+                        <div class="feature-icon-wrapper w-14 h-14 bg-[#1a1a1a] rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-500/10 group-hover:text-purple-400 transition-colors border border-gray-800 group-hover:border-purple-500/30">
+                            <i data-lucide="git-merge" class="w-7 h-7 text-gray-400 group-hover:text-purple-400 transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Keeps Git Diffs Clean</h3>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Stop committing whitespace changes. Keep your version control history focused on actual code changes.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> Removes trailing spaces instantly</li>
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> Reduces whitespace-only commits</li>
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> Prevents unnecessary merge conflicts</li>
+                        </ul>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-card-enhanced p-8 rounded-2xl group animate-fade-in-up delay-300">
+                        <div class="feature-icon-wrapper w-14 h-14 bg-[#1a1a1a] rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500/10 group-hover:text-emerald-400 transition-colors border border-gray-800 group-hover:border-emerald-500/30">
+                            <i data-lucide="shield-check" class="w-7 h-7 text-gray-400 group-hover:text-emerald-400 transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Safe File Handling</h3>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">Your code is precious. We treat it that way by never overwriting files without a backup.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> Never overwrites original files directly</li>
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> Automatically creates cleaned copies</li>
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> Customizable output filenames</li>
+                        </ul>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="feature-card-enhanced p-8 rounded-2xl group animate-fade-in-up delay-500">
+                        <div class="feature-icon-wrapper w-14 h-14 bg-[#1a1a1a] rounded-xl flex items-center justify-center mb-6 group-hover:bg-orange-500/10 group-hover:text-orange-400 transition-colors border border-gray-800 group-hover:border-orange-500/30">
+                            <i data-lucide="sliders" class="w-7 h-7 text-gray-400 group-hover:text-orange-400 transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Simple Interactive Interface</h3>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">You're in control. Choose exactly what you want to clean with clear prompts.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> Clean syntax issues only</li>
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> Optimize for file size</li>
+                            <li class="flex items-start gap-3 text-sm text-gray-400"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i> One-click 'Clean Everything' mode.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Safety Section -->
+        <section id="safety" class="py-24 px-6 bg-[#0c0c0c] relative overflow-hidden scroll-mt-24">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+            <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent"></div>
+            
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <!-- Left: Safe by Design -->
+                    <div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="p-3 bg-emerald-500/10 rounded-xl text-emerald-400 border border-emerald-500/20">
+                                <i data-lucide="shield" class="w-8 h-8"></i>
+                            </div>
+                            <h2 class="text-4xl font-bold text-white">Safe by Design</h2>
+                        </div>
+                        <p class="text-gray-400 mb-8 text-lg leading-relaxed">
+                            Python File Cleaner never changes your program's behavior. It strictly handles formatting and whitespace, ensuring your logic remains <span class="text-white font-medium">100% intact</span>.
+                        </p>
+                        
+                        <div class="safety-card-enhanced rounded-2xl border border-gray-800 p-8 shadow-2xl">
+                            <h3 class="text-white font-semibold mb-6 flex items-center gap-2 border-b border-gray-800 pb-4">
+                                <i data-lucide="lock" class="w-5 h-5 text-blue-400 inline mr-2"></i>
+                                Guaranteed Safe Operations
+                            </h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-center gap-3 text-gray-300">
+                                    <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                                        <i data-lucide="check" class="w-3 h-3 text-emerald-400"></i>
+                                    </div>
+                                    Never modifies logic or algorithms
+                                </li>
+                                <li class="flex items-center gap-3 text-gray-300">
+                                    <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                                        <i data-lucide="check" class="w-3 h-3 text-emerald-400"></i>
+                                    </div>
+                                    Never renames variables or functions
+                                </li>
+                                <li class="flex items-center gap-3 text-gray-300">
+                                    <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                                        <i data-lucide="check" class="w-3 h-3 text-emerald-400"></i>
+                                    </div>
+                                    Never reorders imports
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Right: What It Is Not -->
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-blue-600/10 rounded-3xl transform rotate-3 blur-sm"></div>
+                        <div class="safety-card-enhanced rounded-3xl p-10 relative border border-gray-800 shadow-2xl">
+                            <h3 class="text-2xl font-bold text-white mb-6">What It Is Not</h3>
+                            <p class="text-gray-400 mb-8">
+                                To stay safe and predictable, Python File Cleaner intentionally avoids advanced code manipulation.
+                            </p>
+                            
+                            <div class="grid gap-4">
+                                <!-- Not a Linter -->
+                                <div class="flex items-start gap-4 p-5 rounded-xl bg-[#1f1f1f] border border-gray-700/50 hover:border-gray-600 transition-colors">
+                                    <i data-lucide="x" class="w-5 h-5 text-red-400 mt-1 shrink-0"></i>
+                                    <div>
+                                        <h4 class="text-white font-medium">Not a Linter</h4>
+                                        <p class="text-sm text-gray-500 mt-1">Unlike flake8, it doesn't complain about your style—it just fixes whitespace.</p>
+                                    </div>
+                                </div>
+                                <!-- Not a Formatter -->
+                                <div class="flex items-start gap-4 p-5 rounded-xl bg-[#1f1f1f] border border-gray-700/50 hover:border-gray-600 transition-colors">
+                                    <i data-lucide="x" class="w-5 h-5 text-red-400 mt-1 shrink-0"></i>
+                                    <div>
+                                        <h4 class="text-white font-medium">Not a Formatter</h4>
+                                        <p class="text-sm text-gray-500 mt-1">Unlike black, it doesn't enforce opinionated line lengths or wrapping.</p>
+                                    </div>
+                                </div>
+                                <!-- Not a Refactorer -->
+                                <div class="flex items-start gap-4 p-5 rounded-xl bg-[#1f1f1f] border border-gray-700/50 hover:border-gray-600 transition-colors">
+                                    <i data-lucide="x" class="w-5 h-5 text-red-400 mt-1 shrink-0"></i>
+                                    <div>
+                                        <h4 class="text-white font-medium">Not a Refactorer</h4>
+                                        <p class="text-sm text-gray-500 mt-1">It won't extract methods or change your variable names.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases / Audience -->
+        <section id="who-is-it-for" class="py-24 px-6 bg-dark scroll-mt-24">
+            <div class="max-w-7xl mx-auto">
+                <!-- Who Is It For -->
+                <div class="mb-24">
+                    <h2 class="text-3xl font-bold text-center text-white mb-12">Who Is It For?</h2>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Card 1 -->
+                        <div class="use-case-card-enhanced p-6 rounded-2xl border border-gray-800 text-center hover:-translate-y-2 transition-transform duration-300 hover:shadow-lg hover:shadow-blue-500/10">
+                            <div class="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-5 text-blue-400">
+                                <i data-lucide="graduation-cap" class="w-7 h-7"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Students</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Focus on learning Python logic, not fighting with invisible tab characters.</p>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="use-case-card-enhanced p-6 rounded-2xl border border-gray-800 text-center hover:-translate-y-2 transition-transform duration-300 hover:shadow-lg hover:shadow-purple-500/10">
+                            <div class="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-5 text-purple-400">
+                                <i data-lucide="code-2" class="w-7 h-7"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Legacy Code Fixers</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Clean up ancient scripts without risking breaking the production logic.</p>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="use-case-card-enhanced p-6 rounded-2xl border border-gray-800 text-center hover:-translate-y-2 transition-transform duration-300 hover:shadow-lg hover:shadow-emerald-500/10">
+                            <div class="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-5 text-emerald-400">
+                                <i data-lucide="users" class="w-7 h-7"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Dev Teams</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Stop arguing about whitespace in code reviews. Make git diffs meaningful again.</p>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="use-case-card-enhanced p-6 rounded-2xl border border-gray-800 text-center hover:-translate-y-2 transition-transform duration-300 hover:shadow-lg hover:shadow-orange-500/10">
+                            <div class="w-16 h-16 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto mb-5 text-orange-400">
+                                <i data-lucide="user-check" class="w-7 h-7"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Everyone Else</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Who just wants clean Python files without risk or complicated tools.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Use Cases -->
+                <div id="common-use-cases" class="mb-20">
+                    <div class="bg-[#151515] rounded-3xl border border-gray-800 p-8 md:p-12 relative overflow-hidden">
+                        <!-- Background glows -->
+                        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] translate-x-1/3 -translate-y-1/3"></div>
+                        
+                        <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+                             <div>
+                                <h3 class="text-2xl font-bold text-white mb-6">Built for Speed & Compatibility</h3>
+                                <div class="space-y-6">
+                                    <div>
+                                        <h4 class="flex items-center gap-2 text-white font-medium mb-2">
+                                            <i data-lucide="terminal" class="w-5 h-5 text-emerald-400"></i>
+                                            Written in Rust
+                                        </h4>
+                                        <p class="text-gray-400 text-sm">Blazing fast performance with zero runtime dependencies. Process thousands of files in seconds.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="flex items-center gap-2 text-white font-medium mb-2">
+                                            <i data-lucide="laptop" class="w-5 h-5 text-blue-400"></i>
+                                            Cross-Platform
+                                        </h4>
+                                        <div class="flex gap-3 mt-2">
+                                            <span class="px-3 py-1 bg-[#252525] rounded-lg text-xs text-gray-300 border border-gray-700">Linux</span>
+                                            <span class="px-3 py-1 bg-[#252525] rounded-lg text-xs text-gray-300 border border-gray-700">macOS</span>
+                                            <span class="px-3 py-1 bg-[#252525] rounded-lg text-xs text-gray-300 border border-gray-700">Windows</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-black/40 p-8 rounded-2xl border border-gray-800/50 backdrop-blur-sm">
+                                <h4 class="text-white font-bold mb-6 border-b border-gray-800 pb-4">Common Use Cases</h4>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start gap-3 text-sm text-gray-400">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 shrink-0"></div>
+                                        Cleaning Python files copied from different editors
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-400">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 shrink-0"></div>
+                                        Fixing TabError without manually re-indenting
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-400">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 shrink-0"></div>
+                                        Preparing files before committing to git
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-400">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 shrink-0"></div>
+                                        Reducing file size by removing unnecessary whitespace.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Installation CTA -->
+                <div id="install" class="cta-gradient rounded-3xl p-8 md:p-16 border border-gray-800 relative overflow-hidden text-center scroll-mt-24">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px]"></div>
+                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-emerald-600/10 rounded-full blur-[80px]"></div>
+                    
+                    <div class="cta-content">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to clean your code?</h2>
+                        <p class="text-gray-200 mb-8 max-w-xl mx-auto">
+                            Join thousands of developers who trust Python File Cleaner for safe, automated whitespace management.
+                        </p>
+                        
+                        <div class="bg-black/30 p-6 rounded-2xl mb-8 max-w-2xl mx-auto font-mono text-sm text-left">
+                            <div class="text-green-400 mb-3"># Install and run in seconds</div>
+                            <div class="text-gray-300 mb-1">$ git clone https://github.com/SDayie/Python-File-Cleaner-CLI-Tool.git</div>
+                            <div class="text-gray-300 mb-1">$ cd Python-File-Cleaner-CLI-Tool </div>
+                            <div class="text-gray-300 mb-1">$ cargo install --path .</div>
+                            <div class="text-gray-300 mb-3">$ python-cleaner your_file.py</div>
+                            <div class="text-blue-400 text-xs"># Creates: your_file_clean.py</div>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="window.open('https://github.com/SDayie/Python-File-Cleaner-CLI-Tool.git', '_blank')" class="btn-glow bg-gradient-to-r from-gray-800 to-gray-900 flex items-center justify-center gap-2 px-8 py-4 text-white rounded-xl font-semibold border border-gray-700">
+                                <i data-lucide="github" class="w-5 h-5"></i>
+                                View on GitHub
+                            </button>
+                        </div>
+                        
+                        <div class="mt-10 flex flex-wrap justify-center gap-8 text-sm text-gray-300">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="shield" class="w-4 h-4 text-emerald-400"></i>
+                                <span>100% Safe</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="zap" class="w-4 h-4 text-blue-400"></i>
+                                <span>Lightning Fast</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="code" class="w-4 h-4 text-purple-400"></i>
+                                <span>Open Source</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Section -->
+<section id="pricing" class="py-24 px-6 bg-[#0c0c0c] scroll-mt-24">
+    <div class="max-w-7xl mx-auto text-center">
+        <h2 class="text-4xl font-bold text-white mb-12">Pricing</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Student Price -->
+            <div class="bg-[#1a1a1a] rounded-2xl p-8 border border-gray-800 shadow-lg">
+                <h3 class="text-2xl font-semibold text-white mb-4">Students</h3>
+                <p class="text-gray-400 mb-6">One-time payment</p>
+                <div class="text-3xl font-bold text-white mb-6">€5</div>
+                <button onclick="alert('Contact us to purchase')" 
+                        class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-semibold shadow-md">
+                    Purchase
+                </button>
+            </div>
+            
+            <!-- Standard Price -->
+            <div class="bg-[#1a1a1a] rounded-2xl p-8 border border-gray-800 shadow-lg">
+                <h3 class="text-2xl font-semibold text-white mb-4">Everyone Else</h3>
+                <p class="text-gray-400 mb-6">One-time payment</p>
+                <div class="text-3xl font-bold text-white mb-6">€10</div>
+                <button onclick="alert('Contact us to purchase')" 
+                        class="bg-emerald-500 hover:bg-emerald-400 text-white px-6 py-3 rounded-xl font-semibold shadow-md">
+                    Purchase
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-900 py-12 px-6 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <h3 class="text-white font-bold text-lg flex items-center gap-2">
+                    <div class="w-5 h-5 rounded bg-gradient-to-tr from-blue-500 to-emerald-500"></div>
+                    Python File Cleaner
+                </h3>
+                <p class="text-gray-500 text-sm mt-2">
+                    Clean code, zero stress. Built for developers.
+                </p>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a>
+                <a href="#safety" class="text-gray-400 hover:text-white transition-colors">Safety</a>
+                <a href="#who-is-it-for" class="text-gray-400 hover:text-white transition-colors">Use Cases</a>
+                <div class="flex items-center gap-4 ml-4 pl-4 border-l border-gray-800">
+                    <a href="https://github.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-8 pt-8 border-t border-gray-900 text-center text-xs text-gray-600">
+            © 2024 Python File Cleaner. Made with <i data-lucide="heart" class="w-3 h-3 inline text-red-400"></i> for Python developers.
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize icons
+        lucide.createIcons();
+        
+        // Scroll to section function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                window.scrollTo({
+                    top: element.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // Scroll to install section
+        function scrollToInstall() {
+            scrollToSection('install');
+        }
+        
+        // Update scroll indicator
+        const sections = document.querySelectorAll('section[id]');
+        const dots = document.querySelectorAll('.scroll-dot');
+        
+        function updateScrollIndicator() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.dataset.section === current) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateScrollIndicator);
+        
+        // Ripple effect for buttons
+        document.querySelectorAll('.btn-glow').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = e.clientX - rect.left - size/2 + 'px';
+                ripple.style.top = e.clientY - rect.top - size/2 + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        
+        // Initialize animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in-up');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card-enhanced, .use-case-card-enhanced').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Update copyright year
+        document.addEventListener('DOMContentLoaded', () => {
+            const yearElement = document.querySelector('footer .text-gray-600');
+            if (yearElement) {
+                yearElement.innerHTML = yearElement.innerHTML.replace('2024', new Date().getFullYear());
+            }
+        });
+    </script>
+</body>
+</html>

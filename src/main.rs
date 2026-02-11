@@ -7,16 +7,31 @@ use python_cleaner::*;
 fn main() {
     // Collect command-line arguments
     let args: Vec<String> = env::args().collect();
-    if args.len() < 2 {
-        eprintln!("Usage: python-cleaner <file.py>");
+
+    // Show help if no argument or --help
+    if args.len() < 2 || args[1] == "--help" {
+        println!("Usage: python-cleaner <file.py>");
+        println!("Cleans Python files for syntax, git, and file size issues.");
+        println!("Example: python-cleaner myfile.py");
         return;
     }
 
     let file_path = &args[1];
+    let path = Path::new(file_path);
 
-    // Read the original Python file
-    let content = fs::read_to_string(file_path)
-        .expect("Failed to read file");
+    if !path.exists() {
+        eprintln!("❌ Error: File '{}' does not exist.", file_path);
+        return;
+    }
+
+    // Read the Python file
+    let content = match fs::read_to_string(path) {
+        Ok(c) => c,
+        Err(e) => {
+            eprintln!("❌ Error reading file '{}': {}", file_path, e);
+            return;
+        }
+    };
 
     // Ask the user what they want to clean
     println!("What's your main problem?");
@@ -38,12 +53,12 @@ fn main() {
         "3" => clean_size(&content),
         "4" => clean_all(&content),
         _ => {
-            eprintln!("Invalid choice.");
+            eprintln!("⚠️  Invalid choice.");
             return;
         }
     };
 
-    // Prompt for cleaned file name with a loop to ensure input works
+    // Prompt for cleaned file name
     let final_file_name = loop {
         println!("\nEnter the name for the cleaned file (include .py), or press Enter to use default:");
         print!("> ");
@@ -55,12 +70,11 @@ fn main() {
 
         if new_file_name.is_empty() {
             // Default name if user presses Enter
-            let original_path = Path::new(file_path);
-            let file_stem = original_path
+            let file_stem = path
                 .file_stem()
                 .unwrap_or_default()
                 .to_string_lossy();
-            let extension = original_path
+            let extension = path
                 .extension()
                 .unwrap_or_default()
                 .to_string_lossy();
@@ -73,7 +87,10 @@ fn main() {
     };
 
     // Write cleaned content to the new file
-    fs::write(&final_file_name, cleaned).expect("Failed to write cleaned file");
+    if let Err(e) = fs::write(&final_file_name, cleaned) {
+        eprintln!("❌ Failed to write cleaned file '{}': {}", final_file_name, e);
+        return;
+    }
 
     println!("\n✅ Cleaning complete.");
     println!("Cleaned file saved as: {}", final_file_name);
