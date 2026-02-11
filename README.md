@@ -17,6 +17,19 @@
 - Install [Rust](https://www.rust-lang.org/tools/install) on your system.  
 - Ensure `cargo` is available in your terminal.
 
+### Install via Crates.io 
+**You can install the Python Cleaner CLI globally:**
+cargo install python-cleaner@0.1.1
+
+**To update from a previous version, use:**
+cargo install python-cleaner@0.1.1 --force
+
+**Once installed, run the CLI from anywhere:**
+
+ python-cleaner /path/to/your/python_file.py
+
+ python-cleaner --help
+
 ### Running in GitHub Codespaces
  1. Click the **Code** button on this repository.
  2. Select **Codespaces → Create Codespace**.
