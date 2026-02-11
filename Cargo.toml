@@ -2,10 +2,11 @@
 name = "python-cleaner"
 version = "0.1.0"
 edition = "2021"
-authors = ["Senam Dayie"]
+authors = ["Senam Dayie <senamadayie@gmail.com>"]
 description = "A fast Python whitespace and indentation cleaner for syntax, git, and file size issues"
 license = "MIT"
 repository = "https://github.com/SDayie/Python-File-Cleaner-CLI-Tool.git"
+readme = "README.md"
 keywords = ["python", "formatter", "cli", "whitespace", "git"]
 categories = ["command-line-utilities"]
 
