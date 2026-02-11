@@ -96,7 +96,7 @@
                 <a href="#safety" class="text-gray-400 hover:text-white transition-colors hidden md:inline">Safety</a>
                 <a href="#who-is-it-for" class="text-gray-400 hover:text-white transition-colors hidden md:inline">Use Cases</a>
                 <button onclick="scrollToInstall()" class="btn-glow bg-gradient-to-r from-blue-600 to-emerald-500 text-white px-6 py-2 rounded-xl font-semibold text-sm shadow-lg shadow-blue-900/20">
-                    Download CLI
+                    Installation Steps
                 </button>
             </div>
         </div>
@@ -133,11 +133,11 @@
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <button onclick="scrollToInstall()" class="btn-glow bg-gradient-to-r from-blue-600 to-emerald-500 flex items-center justify-center gap-2 px-8 py-4 text-white rounded-xl font-semibold shadow-lg shadow-blue-900/20">
-                            <i data-lucide="download" class="w-5 h-5"></i>
-                            Download CLI
+                        <button onclick="scrollToInstall()" class="btn-glow bg-gradient-to-r from-blue-600 to-emerald-500 flex items-center justify-center px-8 py-4 text-white rounded-xl font-semibold shadow-lg shadow-blue-900/20">
+                           Installation Steps
                         </button>
-                        <button onclick="window.open('https://github.com', '_blank')" class="btn-glow flex items-center justify-center gap-2 px-8 py-4 bg-[#1a1a1a] hover:bg-[#252525] text-gray-200 rounded-xl font-semibold transition-all border border-gray-800 hover:border-gray-700">
+
+                        <button onclick="window.open('https://github.com/SDayie/Python-File-Cleaner-CLI-Tool.git', '_blank')" class="btn-glow flex items-center justify-center gap-2 px-8 py-4 bg-[#1a1a1a] hover:bg-[#252525] text-gray-200 rounded-xl font-semibold transition-all border border-gray-800 hover:border-gray-700">
                             View on GitHub
                             <i data-lucide="arrow-right" class="w-5 h-5"></i>
                         </button>
@@ -476,21 +476,17 @@
                         
                         <div class="bg-black/30 p-6 rounded-2xl mb-8 max-w-2xl mx-auto font-mono text-sm text-left">
                             <div class="text-green-400 mb-3"># Install and run in seconds</div>
-                            <div class="text-gray-300 mb-1">$ git clone https://github.com/yourusername/python-file-cleaner</div>
-                            <div class="text-gray-300 mb-1">$ cd python-file-cleaner</div>
+                            <div class="text-gray-300 mb-1">$ git clone https://github.com/SDayie/Python-File-Cleaner-CLI-Tool.git</div>
+                            <div class="text-gray-300 mb-1">$ cd Python-File-Cleaner-CLI-Tool </div>
                             <div class="text-gray-300 mb-1">$ cargo install --path .</div>
                             <div class="text-gray-300 mb-3">$ python-cleaner your_file.py</div>
                             <div class="text-blue-400 text-xs"># Creates: your_file_clean.py</div>
                         </div>
                         
                         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button onclick="window.open('https://github.com', '_blank')" class="btn-glow bg-gradient-to-r from-gray-800 to-gray-900 flex items-center justify-center gap-2 px-8 py-4 text-white rounded-xl font-semibold border border-gray-700">
+                            <button onclick="window.open('https://github.com/SDayie/Python-File-Cleaner-CLI-Tool.git', '_blank')" class="btn-glow bg-gradient-to-r from-gray-800 to-gray-900 flex items-center justify-center gap-2 px-8 py-4 text-white rounded-xl font-semibold border border-gray-700">
                                 <i data-lucide="github" class="w-5 h-5"></i>
                                 View on GitHub
-                            </button>
-                            <button onclick="downloadCLI()" class="btn-glow bg-gradient-to-r from-blue-600 to-emerald-500 flex items-center justify-center gap-2 px-8 py-4 text-white rounded-xl font-semibold shadow-lg shadow-blue-900/20">
-                                <i data-lucide="download" class="w-5 h-5"></i>
-                                Download CLI
                             </button>
                         </div>
                         
@@ -511,8 +507,37 @@
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+
+            <!-- Pricing Section -->
+<section id="pricing" class="py-24 px-6 bg-[#0c0c0c] scroll-mt-24">
+    <div class="max-w-7xl mx-auto text-center">
+        <h2 class="text-4xl font-bold text-white mb-12">Pricing</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Student Price -->
+            <div class="bg-[#1a1a1a] rounded-2xl p-8 border border-gray-800 shadow-lg">
+                <h3 class="text-2xl font-semibold text-white mb-4">Students</h3>
+                <p class="text-gray-400 mb-6">One-time payment</p>
+                <div class="text-3xl font-bold text-white mb-6">€5</div>
+                <button onclick="alert('Contact us to purchase')" 
+                        class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-semibold shadow-md">
+                    Purchase
+                </button>
+            </div>
+            
+            <!-- Standard Price -->
+            <div class="bg-[#1a1a1a] rounded-2xl p-8 border border-gray-800 shadow-lg">
+                <h3 class="text-2xl font-semibold text-white mb-4">Everyone Else</h3>
+                <p class="text-gray-400 mb-6">One-time payment</p>
+                <div class="text-3xl font-bold text-white mb-6">€10</div>
+                <button onclick="alert('Contact us to purchase')" 
+                        class="bg-emerald-500 hover:bg-emerald-400 text-white px-6 py-3 rounded-xl font-semibold shadow-md">
+                    Purchase
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
 
     <!-- Footer -->
     <footer class="bg-black border-t border-gray-900 py-12 px-6 mt-12">
@@ -613,10 +638,6 @@
             });
         });
         
-        // Download CLI function (simulated)
-        function downloadCLI() {
-            alert('Download simulation: This would download the Python File Cleaner CLI tool.\n\nIn a real implementation, this would link to the actual download.');
-        }
         
         // Initialize animations on scroll
         const observerOptions = {
