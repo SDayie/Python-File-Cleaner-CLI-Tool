@@ -1,5 +1,5 @@
 # 🐍 Python Cleaner Tool
-
+[![Crates.io](https://img.shields.io/crates/v/python-cleaner.svg)](https://crates.io/crates/python-cleaner/0.1.1)
 ## Automatically manage whitespace and fix basic Python syntax issues without changing your code logic. 
 
 - Converts tabs to spaces (**prevents `TabError`**)  
