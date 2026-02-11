@@ -17,6 +17,30 @@
 - Install [Rust](https://www.rust-lang.org/tools/install) on your system.  
 - Ensure `cargo` is available in your terminal.
 
+### Running in GitHub Codespaces
+ 1. Click the **Code** button on this repository.
+ 2. Select **Codespaces → Create Codespace**.
+ 3. Wait for the environment to load.
+ 4. In the terminal, build the project:
+    cargo build
+
+ 6. Run the tool on your Python file:
+ cargo run -- your_file.py
+ (Example: cargo run -- demo_dirty.py)
+ 
+ #### 8. Choose Cleaning Mode
+ 1. Syntax errors
+ 2. Git issues
+ 3. File size
+ 4. Everything
+    
+ #### 7. Get Your Cleaned File
+ The tool creates:
+ your_file_cleaned.py
+ 
+ Your original file remains unchanged.
+ 
+
 ###  Download / Clone the Tool from GitHub
 Open your terminal (macOS/Linux) or PowerShell (Windows) and run:
 git clone https://github.com/SDayie/Python-File-Cleaner-CLI-Tool.git
@@ -125,17 +149,14 @@ python dirty_example_cleaned.py
 
 ### **Syntax Errors Demo**
 ### ❌ Before Cleaning
-<img width="1277" height="520" alt="syntax_error" src="https://github.com/user-attachments/assets/bb83cddf-2392-42d4-92e2-ca16b2d49ed1" />
+<img width="913" height="467" alt="image" src="https://github.com/user-attachments/assets/be8cbf0d-d2e7-46a1-87f8-4a83bae60b63" />
 
- Python fails due to invisible whitespace issues.
-
-Mixed tabs and spaces combined with a broken line continuation cause a TabError / SyntaxError, even though the logic is correct.*
-
+ Python fails due to invisible whitespace issues. 
+ Mixed tabs and spaces combined with trailing backslashes can cause a TabError or SyntaxError, even though the logic is correct.
 ### ✅ After Cleaning
-<img width="1277" height="520" alt="syntax_error_cleaned" src="https://github.com/user-attachments/assets/971bc473-6ab2-42c7-b014-f63ccc83e9a6" />
+<img width="913" height="467" alt="image" src="https://github.com/user-attachments/assets/3ff0bf4a-f315-4035-9b51-1c5ff9629974" />
 
-Same logic, valid syntax.
-Tabs are converted to spaces and trailing whitespace after the backslash is removed. The script now runs successfully without changing behavior.
+Tabs are converted to spaces and trailing whitespace after the backslash is removed. 
 
 ### **Git Issues Demo**
 ### ❌ Before Cleaning
