@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["clean_all","clean_git","clean_size","clean_syntax","fix_backslash_space","normalize_blank_lines","normalize_line_endings","remove_trailing_spaces","tabs_to_spaces"]};
