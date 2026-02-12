@@ -41,7 +41,7 @@ cargo install python-cleaner@0.1.1 --force
  cargo run -- your_file.py
  (Example: cargo run -- demo_dirty.py)
  
- #### 8. Choose Cleaning Mode
+ #### 6. Choose Cleaning Mode
  1. Syntax errors
  2. Git issues
  3. File size
