@@ -10,11 +10,14 @@ readme = "README.md"
 keywords = ["python", "formatter", "cli", "whitespace", "git"]
 categories = ["command-line-utilities"]
 
+[lib]
+name = "python_cleaner"
+path = "src/lib.rs"
+
 [[bin]]
 name = "python-cleaner"
 path = "src/main.rs"
 
-[dependencies]
 
 [dev-dependencies]
 assert_cmd = "2.0"
