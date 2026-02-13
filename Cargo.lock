@@ -162,7 +162,14 @@ version = "0.1.1"
 dependencies = [
  "assert_cmd",
  "predicates 2.1.5",
+ "python-cleaner 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "python-cleaner"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "59f622418566eba9c28e0ffbe09e9f75774ed899c5da85ae9eb7c39340d61439"
 
 [[package]]
 name = "quote"
